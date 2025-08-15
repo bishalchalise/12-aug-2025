@@ -1,5 +1,3 @@
-import React from "react";
-import jobs from "../jobs.json";
 import JobListings from "../components/JobListings";
 const JobsPage = () => {
   return (
