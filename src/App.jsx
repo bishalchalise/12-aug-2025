@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import PageNotFound from "./pages/PageNotFound";
 import AddJobPage from "./pages/AddJobPage";
+import EditJobPage from "./pages/EditJobPage";
 
 const App = () => {
   // Function to handle adding a job
@@ -53,6 +54,16 @@ const App = () => {
     });
     return;
   };
+  // Update Job
+  const updateJobSubmit = async (updatedJob) => {
+    const res = await fetch(`/api/jobs/${updatedJob.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(updatedJob),
+    });
+  };
 
   // Setting up the router with routes for the application
 
@@ -61,6 +72,11 @@ const App = () => {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/jobs" element={<JobsPage />} />
+        <Route
+          path="/edit-job/:id"
+          element={<EditJobPage updateJobSubmit={updateJobSubmit} />}
+          loader={jobLoader}
+        />
 
         <Route
           path="/jobs/:id"
